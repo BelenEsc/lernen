@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 package lernen;
-branch1
+branch12 test banch2
 
-=======
-package lernen;
->>>>>>> branch 'main' of https://github.com/BelenEsc/lernen.git
+
