@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 package lernen;
-deleted
+branch1
+
+=======
+package lernen;
+>>>>>>> branch 'main' of https://github.com/BelenEsc/lernen.git
