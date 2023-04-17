@@ -33,7 +33,7 @@ class Layer extends JPanel{
 	public Layer () {
 		 
 
-		
+		adadad
 	}
 	
 	
