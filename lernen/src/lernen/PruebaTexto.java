@@ -31,8 +31,8 @@ class MarcoText extends JFrame {
 class Layer extends JPanel{
 	
 	public Layer () {
-		
-		 from eclipse
+		 
+
 		
 	}
 	
