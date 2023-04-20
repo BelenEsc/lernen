@@ -1,7 +1,12 @@
 package lernen;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class PruebaTexto {
 
@@ -20,23 +25,37 @@ class MarcoText extends JFrame {
 		setDefaultCloseOperation(3);
 		setVisible(true);
 		setTitle("texto");
-		Layer lamina = new Layer();
-		add(lamina); 
-		
 
+		Layer lamina = new Layer();
+		add(lamina);
 	}
 
 }
 
-class Layer extends JPanel{
-	
-	public Layer () {
-		 
+class Layer extends JPanel {
 
-		adadad
+	private JTextField campo;
+
+	public Layer() {
+		
+		campo = new JTextField(6);
+		add(campo);
+		JButton boton1 = new JButton("aceptar");
+		DameTexto mievento = new DameTexto();
+		boton1.addActionListener(mievento);
+		add(boton1);
+
+		c
+
 	}
-	
-	
-	
-	
+
+	private class DameTexto implements ActionListener {
+		public DameTexto() {
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(campo.getText().trim());
+		}
+	}
 }
