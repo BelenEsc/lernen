@@ -45,7 +45,7 @@ class Lamina6 extends JPanel {
 
 		setLayout(new BorderLayout());
 		panelRadio = new JPanel();
-		textField = new JLabel("aqui hay un texto");
+		textField = new JLabel("aqui hay un texto x ");
 		grupoBotones = new ButtonGroup();
 		panelRadio.setLayout(new FlowLayout());
 
