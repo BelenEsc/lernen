@@ -60,6 +60,11 @@ class Lamina8 extends JPanel {
 		add(panelSlider,BorderLayout.NORTH);
 		add(texto, BorderLayout.CENTER); //anadir
 		
+		
+		
+		
+		
+		
 		ChangeListener instrucciones = new ChangeListener() {
 			
 			@Override
@@ -67,11 +72,13 @@ class Lamina8 extends JPanel {
 				int fuente=slider.getValue();
 				
 				texto.setFont(new Font ("Arial",Font.BOLD,fuente));
-				
 			}
 		};
-		
 		slider.addChangeListener(instrucciones);
 		
 	}
+	
+	
+	
+	
 }
