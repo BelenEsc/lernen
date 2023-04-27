@@ -127,7 +127,7 @@ class LaminaWord extends JPanel {
 			fuuente = fuentes;
 			taamano = tamanio;
 			esstilo = estilo;
-		//	menu = rotulo;
+		////	menu = rotulo;
 		}
 
 		public void actionPerformed(ActionEvent e) {
