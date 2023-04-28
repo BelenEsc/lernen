@@ -2,8 +2,11 @@ package lernen;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -13,36 +16,40 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.text.StyledEditorKit;
 
-public class miWordV2 {
+public class MenuRadio {
 
 	public static void main(String[] args) {
-		Marco12 marco12 = new Marco12();
+		// TODO Auto-generated method stub
+
+		Marco14 marco14 = new Marco14();
+
 	}
 
 }
 
-class Marco12 extends JFrame {
-	public Marco12() {
+class Marco14 extends JFrame {
+	public Marco14() {
 
-		setTitle("Mi Word precario");
+		setTitle("Menus con checkboxes y botones radio");
 		setVisible(true);
 		setDefaultCloseOperation(3);
 		setBounds(50, 50, 500, 500);
-		LaminaWord2 laminaWord2 = new LaminaWord2();
-		add(laminaWord2);
+		Lamina14 lamina14 = new Lamina14();
+		add(lamina14);
 
 	}
 
 }
 
-class LaminaWord2 extends JPanel {
+class Lamina14 extends JPanel {
+
 	JTextPane areaTexto;
 	JMenu fuente, tamanio, estilo;
 	Font configuracionInicial;
 	JLabel output;
 	JPanel paneOut;
 
-	public LaminaWord2() {
+	public Lamina14() {
 
 		setLayout(new BorderLayout());
 
@@ -89,17 +96,31 @@ class LaminaWord2 extends JPanel {
 //		tamanio.add(veintidos);
 //		tamanio.add(veinticuatro);
 
-		crearActuar("Arial", "fuente", "Arial", 3, 52, "H://git//lernen//lernen//bin//iconos//paste.jpg" );
-		crearActuar("Verdana", "fuente", "Verdana", 3, 52,"H:/git//lernen//lernen//bin//iconos/copy.jpg");
-		crearActuar("Serif", "fuente", "Serif", 3, 12,"H:/git//lernen//lernen//bin//iconos/gpt.png");
-		crearActuar("Negrita", "estilo", "", Font.BOLD, 30,"H:/git//lernen//lernen//bin//iconos/paste.jpg");
-		crearActuar("Cursiva", "estilo", "", Font.ITALIC, 30,"H:/git//lernen//lernen//bin//iconos/paste.jpg");
-		crearActuar("12", "tamanio", "", 3, 12,"H:/git//lernen//lernen//bin//iconos/paste.jpg");
-		crearActuar("20", "tamanio", "", 3, 20,"H:/git//lernen//lernen//bin//iconos/paste.jpg");
-		crearActuar("28", "tamanio", "", 3, 28,"H:/git//lernen//lernen//bin//iconos/paste.jpg");
+		crearActuar("Arial", "fuente", "Arial", 3, 52, "H://git//lernen//lernen//bin//iconos//paste.jpg");
+		crearActuar("Verdana", "fuente", "Verdana", 3, 52, "H:/git//lernen//lernen//bin//iconos/copy.jpg");
+		crearActuar("Serif", "fuente", "Serif", 3, 12, "H:/git//lernen//lernen//bin//iconos/gpt.png");
+		// crearActuar("Negrita", "estilo", "", Font.BOLD, 30,
+		// "H:/git//lernen//lernen//bin//iconos/paste.jpg");
+		// crearActuar("Cursiva", "estilo", "", Font.ITALIC, 30,
+		// "H:/git//lernen//lernen//bin//iconos/paste.jpg");
+
+		JCheckBoxMenuItem Negrita = new JCheckBoxMenuItem("Negrita",
+				new ImageIcon("H:/git//lernen//lernen//bin//iconos/paste.jpg"));
+		JCheckBoxMenuItem Cursiva = new JCheckBoxMenuItem("Cursiva");
+
+		Negrita.addActionListener(new StyledEditorKit.BoldAction());
+		Cursiva.addActionListener(new StyledEditorKit.ItalicAction());
+
+		estilo.add(Negrita);
+		estilo.add(Cursiva);
+
+		crearActuar("12", "tamanio", "", 3, 12, "H:/git//lernen//lernen//bin//iconos/paste.jpg");
+		crearActuar("20", "tamanio", "", 3, 20, "H:/git//lernen//lernen//bin//iconos/paste.jpg");
+		crearActuar("28", "tamanio", "", 3, 28, "H:/git//lernen//lernen//bin//iconos/paste.jpg");
 
 		barraMenu.add(fuente);
 		barraMenu.add(estilo);
+
 		barraMenu.add(tamanio);
 		paneOut.add(output);
 		add(barraMenu, BorderLayout.NORTH);
@@ -111,7 +132,7 @@ class LaminaWord2 extends JPanel {
 	public void crearActuar(String rotulo, String menu, String fuente, int estilo, int tamanio, String imagen) {
 
 		ImageIcon icon = new ImageIcon(imagen);
-		JMenuItem unItem = new JMenuItem(rotulo,icon);
+		JMenuItem unItem = new JMenuItem(rotulo, icon);
 
 		if (menu == "fuente") {
 			this.fuente.add(unItem);
