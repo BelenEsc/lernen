@@ -36,7 +36,7 @@ class LaminaBarra extends JPanel {
 		JMenuBar barraMenu = new JMenuBar();
 		JMenu elementoBarra0 = new JMenu("abrir");
 		JMenuItem abrir1 = new JMenuItem("abrir1");
-		
+
 		JMenuItem abrir2 = new JMenuItem("abrir2");
 		JMenuItem abrir3 = new JMenuItem("abrir3");
 		JMenuItem abrir4 = new JMenuItem("abrir4");
@@ -68,10 +68,10 @@ class LaminaBarra extends JPanel {
 		barraMenu.add(elementoBarra1);
 		elementoBarra1.add(opciones2);
 		elementoBarra1.add(opciones1);
-		opciones1.add(opciones11);	
+		opciones1.add(opciones11);
 		opciones1.add(opciones12);
 		opciones12.add(opciones121);
-		
+
 		barraMenu.add(elementoBarra2);
 		elementoBarra2.add(ayuda1);
 		elementoBarra2.add(ayuda2);

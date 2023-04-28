@@ -37,12 +37,18 @@ class Layer2 extends JPanel {
 
 		JTextField texto = new JTextField("aqui un texto", 20);
 		add(texto);
-		
-		Receptora receptora = new Receptora(); // este objeto tiene todas las instrucciones  para cada caso. pe. q pasa si se borra,anade, cambia, etc pero todavia hay que hacer algo con estas instrucciones
-		
+
+		Receptora receptora = new Receptora(); // este objeto tiene todas las instrucciones para cada caso. pe. q pasa
+												// si se borra,anade, cambia, etc pero todavia hay que hacer algo con
+												// estas instrucciones
+
 		Document midoc = texto.getDocument(); // el metodoo getDocument es de la clase jtextfield que al aplicarlo sobre
-												// un elemento de esa clase, devuelve un objeto de tipo document. este objeto contiene el texto del campo texto y sobre este tienen que actuar las acciones cuando se ins/del.
-		midoc.addDocumentListener(receptora); //esta linea dice que se van a ahcer con las instrucciones. Osea al cambiar el texto (accion): actuar sobre el objeto midoc y pasarle las instrucciones de que hacer en cada caso
+												// un elemento de esa clase, devuelve un objeto de tipo document. este
+												// objeto contiene el texto del campo texto y sobre este tienen que
+												// actuar las acciones cuando se ins/del.
+		midoc.addDocumentListener(receptora); // esta linea dice que se van a ahcer con las instrucciones. Osea al
+												// cambiar el texto (accion): actuar sobre el objeto midoc y pasarle las
+												// instrucciones de que hacer en cada caso
 
 	}
 

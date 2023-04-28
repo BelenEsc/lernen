@@ -36,49 +36,39 @@ class Marco8 extends JFrame {
 }
 
 class Lamina8 extends JPanel {
-	
-	
-	
+
 	public Lamina8() {
 
 		setLayout(new BorderLayout());
-		
-		JSlider slider = new JSlider(8,50,12); // valor minimo, valos maximo, donde comienza
-		
-		slider.setOrientation(SwingConstants.HORIZONTAL);//orientaicion
-		slider.setMajorTickSpacing(10);//las rayitas grandes
-		slider.setMinorTickSpacing(5);//las rayitas cortitas
-		slider.setPaintLabels(true);//poner los valores de las rayitas
-		slider.setPaintTicks(true); //poner las rayitas en el plano
-		slider.setFont(new Font ("Arial",Font.ITALIC,8));//fuente
-		slider.setSnapToTicks(true);//iman
-		
-		JPanel panelSlider= new JPanel();
+
+		JSlider slider = new JSlider(8, 50, 12); // valor minimo, valos maximo, donde comienza
+
+		slider.setOrientation(SwingConstants.HORIZONTAL);// orientaicion
+		slider.setMajorTickSpacing(10);// las rayitas grandes
+		slider.setMinorTickSpacing(5);// las rayitas cortitas
+		slider.setPaintLabels(true);// poner los valores de las rayitas
+		slider.setPaintTicks(true); // poner las rayitas en el plano
+		slider.setFont(new Font("Arial", Font.ITALIC, 8));// fuente
+		slider.setSnapToTicks(true);// iman
+
+		JPanel panelSlider = new JPanel();
 		JLabel texto = new JLabel("un texto equis");
-		
+
 		panelSlider.add(slider);
-		add(panelSlider,BorderLayout.NORTH);
-		add(texto, BorderLayout.CENTER); //anadir
-		
-		
-		
-		
-		
-		
+		add(panelSlider, BorderLayout.NORTH);
+		add(texto, BorderLayout.CENTER); // anadir
+
 		ChangeListener instrucciones = new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				int fuente=slider.getValue();
-				
-				texto.setFont(new Font ("Arial",Font.BOLD,fuente));
+				int fuente = slider.getValue();
+
+				texto.setFont(new Font("Arial", Font.BOLD, fuente));
 			}
 		};
 		slider.addChangeListener(instrucciones);
-		
+
 	}
-	
-	
-	
-	
+
 }

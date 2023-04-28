@@ -87,11 +87,14 @@ class Lamina5 extends JPanel {
 		}
 
 		@Override
-		public void actionPerformed(ActionEvent e) {                                                                            
+		public void actionPerformed(ActionEvent e) {
 
 			if (boxNegrita.isSelected()) {
 				if (boxCursiva.isSelected()) {
-					texto.setFont(new Font("Arial", Font.BOLD + Font.ITALIC, 12)); // en vez de ponerle Font.BOLD + Font.ITALIC tb se puede poner la variable 3 q es la q alica las dos 
+					texto.setFont(new Font("Arial", Font.BOLD + Font.ITALIC, 12)); // en vez de ponerle Font.BOLD +
+																					// Font.ITALIC tb se puede poner la
+																					// variable 3 q es la q alica las
+																					// dos
 				} else {
 					texto.setFont(new Font("Arial", Font.BOLD, 12));
 				}

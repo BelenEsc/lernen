@@ -2,9 +2,6 @@ package lernen;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.Label;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,37 +10,38 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.text.StyledEditorKit;
 
-public class miWord {
+public class miWordV2 {
 
 	public static void main(String[] args) {
-		Marco11 marco11 = new Marco11();
+		Marco12 marco12 = new Marco12();
 	}
 
 }
 
-class Marco11 extends JFrame {
-	public Marco11() {
+class Marco12 extends JFrame {
+	public Marco12() {
 
 		setTitle("Mi Word precario");
 		setVisible(true);
 		setDefaultCloseOperation(3);
 		setBounds(50, 50, 500, 500);
-		LaminaWord laminaWord = new LaminaWord();
-		add(laminaWord);
+		LaminaWord2 laminaWord2 = new LaminaWord2();
+		add(laminaWord2);
 
 	}
 
 }
 
-class LaminaWord extends JPanel {
+class LaminaWord2 extends JPanel {
 	JTextPane areaTexto;
 	JMenu fuente, tamanio, estilo;
 	Font configuracionInicial;
 	JLabel output;
 	JPanel paneOut;
 
-	public LaminaWord() {
+	public LaminaWord2() {
 
 		setLayout(new BorderLayout());
 
@@ -115,59 +113,26 @@ class LaminaWord extends JPanel {
 
 		if (menu == "fuente") {
 			this.fuente.add(unItem);
+			unItem.addActionListener(new StyledEditorKit.FontFamilyAction("", fuente));
 
 		} else if (menu == "tamanio") {
 			this.tamanio.add(unItem);
+			unItem.addActionListener(new StyledEditorKit.FontSizeAction("", tamanio));
 
 		} else {
 			this.estilo.add(unItem);
-		}
 
-		Acciones acciones = new Acciones(rotulo, fuente, estilo, tamanio);
-		unItem.addActionListener(acciones);
-	}
+			if (rotulo == "Negrita") {
 
-	class Acciones implements ActionListener {
+				unItem.addActionListener(new StyledEditorKit.BoldAction());
+			} else if (rotulo == "Cursiva") {
+				unItem.addActionListener(new StyledEditorKit.ItalicAction());
 
-		String fuuente, menu;
-		int taamano;
-		int esstilo;
-
-		public Acciones(String rotulo, String fuentes, int estilo, int tamanio) {
-			fuuente = fuentes;
-			taamano = tamanio;
-			esstilo = estilo;
-			menu = rotulo;
-
-		}
-
-		public void actionPerformed(ActionEvent e) {
-
-			configuracionInicial = areaTexto.getFont();
-
-			if (menu == "Arial" || menu == "Verdana" || menu == "Serif") {
-
-				esstilo = configuracionInicial.getStyle();
-				taamano = configuracionInicial.getSize();
-
-			} else if (menu == "Negrita" || menu == "Cursiva") {
-				if (configuracionInicial.getStyle() == 1 || configuracionInicial.getStyle() == 2) {
-					esstilo = 3;
-				}
-
-				fuuente = configuracionInicial.getFontName();
-				taamano = configuracionInicial.getSize();
-
-			} else {
-				fuuente = configuracionInicial.getFontName();
-				esstilo = configuracionInicial.getStyle();
 			}
 
-			areaTexto.setFont(new Font(fuuente, esstilo, taamano));
-			output.setText("el tipo de letra es: " + fuuente + " el estilo es: " + esstilo + " el tamanio de letra es: "
-					+ taamano);
-
 		}
-
+		
+		
 	}
+
 }

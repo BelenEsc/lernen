@@ -53,13 +53,13 @@ class Lamina6 extends JPanel {
 		crearBotones("mediano", false, 16);
 		crearBotones("grande", false, 20);
 		crearBotones("super grande", false, 24);
-		
+
 		add(textField, BorderLayout.NORTH);
 		add(panelRadio, BorderLayout.SOUTH);
 	}
 
 	public void crearBotones(String nombre, boolean inicio, int tamanio) {
-		
+
 		JRadioButton boton = new JRadioButton(nombre, inicio);
 		grupoBotones.add(boton);
 		panelRadio.add(boton);

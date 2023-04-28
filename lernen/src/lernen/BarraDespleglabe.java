@@ -1,7 +1,6 @@
 package lernen;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,7 +42,7 @@ class Lamina7 extends JPanel {
 		JPanel desplegable = new JPanel();
 
 		textoPlano = new JLabel("aqui hay un texto equis");
-		textoPlano.setFont(new Font ("Arial",Font.PLAIN,22));
+		textoPlano.setFont(new Font("Arial", Font.PLAIN, 22));
 		cuadroDesplegable = new JComboBox();
 
 		cuadroDesplegable.addItem("Serif");
@@ -58,12 +57,10 @@ class Lamina7 extends JPanel {
 		cuadroDesplegable.addItem("Garamond");
 		cuadroDesplegable.addItem("Franklin Gothic Medium");
 		cuadroDesplegable.addItem("Rockwell");
-		
-		
+
 		Instrucciones7 instrucciones7 = new Instrucciones7();
 		cuadroDesplegable.addActionListener(instrucciones7);
-		
-		
+
 		desplegable.add(cuadroDesplegable);
 
 		textoCambiar.add(textoPlano);
@@ -80,8 +77,7 @@ class Lamina7 extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			
-			textoPlano.setFont(new Font ((String)cuadroDesplegable.getSelectedItem(),Font.PLAIN,22));
+			textoPlano.setFont(new Font((String) cuadroDesplegable.getSelectedItem(), Font.PLAIN, 22));
 		}
 
 	}
