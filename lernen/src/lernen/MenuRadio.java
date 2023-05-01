@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -17,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.text.StyledEditorKit;
 
 public class MenuRadio {
@@ -149,9 +152,11 @@ class Lamina14 extends JPanel {
 		Cursiva.addActionListener(new StyledEditorKit.ItalicAction());
 		doce.addActionListener(new StyledEditorKit.FontSizeAction("", 12));
 		veinte.addActionListener(new StyledEditorKit.FontSizeAction("", 22));
+//		veinte.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
 		veocho.addActionListener(new StyledEditorKit.FontSizeAction("", 28));
 
 		negrita.addActionListener(new StyledEditorKit.BoldAction());
+
 		cursiva.addActionListener(new StyledEditorKit.ItalicAction());
 
 //******Anadir los elementos de cada menu a su respectivo elemento en el menu de la barra 
@@ -187,6 +192,16 @@ class Lamina14 extends JPanel {
 
 		if (menu == "fuente") {
 			this.fuente.add(unItem);
+			
+			if (rotulo == "Arial") {
+				unItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.ALT_DOWN_MASK));
+			} else if (rotulo == "Verdana") {
+				unItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.ALT_DOWN_MASK));
+
+			} else {
+				unItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.ALT_DOWN_MASK));
+			}
+			
 			unItem.addActionListener(new StyledEditorKit.FontFamilyAction("", fuente));
 
 		} else if (menu == "tamanio") {
