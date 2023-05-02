@@ -1,14 +1,14 @@
 package lernen;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextPane;
+import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.text.StyledEditorKit;
 
@@ -150,6 +151,12 @@ class Lamina14 extends JPanel {
 
 		Negrita.addActionListener(new StyledEditorKit.BoldAction());
 		Cursiva.addActionListener(new StyledEditorKit.ItalicAction());
+
+//******atajos
+
+		Negrita.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
+		Cursiva.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
+
 		doce.addActionListener(new StyledEditorKit.FontSizeAction("", 12));
 		veinte.addActionListener(new StyledEditorKit.FontSizeAction("", 22));
 //		veinte.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
@@ -183,6 +190,36 @@ class Lamina14 extends JPanel {
 		add(barraMenu, BorderLayout.NORTH);
 		add(areaTexto, BorderLayout.CENTER);
 
+//******construir barra de herramientas 
+
+		JToolBar barraHerramientas = new JToolBar("tools", JToolBar.VERTICAL);
+
+//******construir Botones 
+
+		JButton bold = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\bold.gif"));
+		JButton italic = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\italic.gif"));
+		JButton under = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\italic.gif"));
+		JButton verde = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\verde.gif"));
+
+//******anadir la funcion a los botones
+
+		bold.addActionListener(new StyledEditorKit.BoldAction());
+		italic.addActionListener(new StyledEditorKit.ItalicAction());
+		under.addActionListener(new StyledEditorKit.UnderlineAction());
+		verde.addActionListener(new StyledEditorKit.ForegroundAction("", Color.green));
+
+//******anadir elementos a la barra de herramientas
+
+		barraHerramientas.add(bold);
+		barraHerramientas.add(italic);
+		barraHerramientas.add(under);
+		barraHerramientas.addSeparator();
+		barraHerramientas.add(verde);
+		
+//******anadir barra de herramientas a la lamina
+
+		add(barraHerramientas, BorderLayout.EAST);
+
 	}
 
 	public void crearActuar(String rotulo, String menu, String fuente, int estilo, int tamanio, String imagen) {
@@ -192,7 +229,7 @@ class Lamina14 extends JPanel {
 
 		if (menu == "fuente") {
 			this.fuente.add(unItem);
-			
+
 			if (rotulo == "Arial") {
 				unItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.ALT_DOWN_MASK));
 			} else if (rotulo == "Verdana") {
@@ -201,7 +238,7 @@ class Lamina14 extends JPanel {
 			} else {
 				unItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.ALT_DOWN_MASK));
 			}
-			
+
 			unItem.addActionListener(new StyledEditorKit.FontFamilyAction("", fuente));
 
 		} else if (menu == "tamanio") {
@@ -214,7 +251,10 @@ class Lamina14 extends JPanel {
 			if (rotulo == "Negrita") {
 
 				unItem.addActionListener(new StyledEditorKit.BoldAction());
+
 			} else if (rotulo == "Cursiva") {
+				unItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
+
 				unItem.addActionListener(new StyledEditorKit.ItalicAction());
 
 			}

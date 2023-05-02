@@ -39,8 +39,6 @@ class LaminaWord2 extends JPanel {
 	JTextPane areaTexto;
 	JMenu fuente, tamanio, estilo;
 	Font configuracionInicial;
-	JLabel output;
-	JPanel paneOut;
 
 	public LaminaWord2() {
 
@@ -50,12 +48,6 @@ class LaminaWord2 extends JPanel {
 
 		JMenuBar barraMenu = new JMenuBar();
 
-		output = new JLabel();
-		paneOut = new JPanel();
-
-		int alto = paneOut.getHeight();
-		final int ancho = 20;
-		paneOut.setSize(ancho, alto);
 
 		fuente = new JMenu("Fuente");
 
@@ -101,10 +93,8 @@ class LaminaWord2 extends JPanel {
 		barraMenu.add(fuente);
 		barraMenu.add(estilo);
 		barraMenu.add(tamanio);
-		paneOut.add(output);
 		add(barraMenu, BorderLayout.NORTH);
 		add(areaTexto, BorderLayout.CENTER);
-		add(paneOut, BorderLayout.SOUTH);
 
 	}
 
