@@ -23,39 +23,47 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.text.StyledEditorKit;
 
-public class MenuRadio {
+public class ProcesadorSimplificado {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Marco14 marco14 = new Marco14();
+		Marco17 Marco17 = new Marco17();
 
 	}
 
 }
 
-class Marco14 extends JFrame {
-	public Marco14() {
+class Marco17 extends JFrame {
+	public Marco17() {
 
-		setTitle("Menus con checkboxes y botones radio");
+		setTitle("Recortar codigo");
 		setVisible(true);
 		setDefaultCloseOperation(3);
-		setBounds(50, 50, 500, 500);
-		Lamina14 lamina14 = new Lamina14();
-		add(lamina14);
+		setBounds(50, 50, 700, 700);
+		Lamina17 Lamina17 = new Lamina17();
+		add(Lamina17);
 
 	}
 
 }
 
-class Lamina14 extends JPanel {
+class Lamina17 extends JPanel {
 
 	JTextPane areaTexto;
 	JMenu fuente, tamanio, estilo;
 	Font configuracionInicial;
 	JLabel output;
+	JButton bold;
+	JButton italic;
+	JButton under;
+	JButton verde;
+	JButton centrar;
+	JButton izquierda;
+	JButton derecha;
+	JToolBar barraHerramientas;
 
-	public Lamina14() {
+	public Lamina17() {
 
 //*****Definir la disposicion de la lamina
 
@@ -70,35 +78,14 @@ class Lamina14 extends JPanel {
 //******Crear los elementos de la barra menu
 
 		fuente = new JMenu("Fuente");
-
-//		JMenuItem arial = new JMenuItem("Arial");
-//		JMenuItem verdana = new JMenuItem("Verdana");
-//		JMenuItem serif = new JMenuItem("Serif");
-
 		estilo = new JMenu("Estilo");
-//		JMenuItem negrita = new JMenuItem("Negrita");
-//		JMenuItem cursiva = new JMenuItem("Cursiva");
-//
 		tamanio = new JMenu("Tamano");
-//		JMenuItem doce = new JMenuItem("12");
-//		JMenuItem dieciseis = new JMenuItem("16");
-//		JMenuItem dieciocho = new JMenuItem("18");
-//		JMenuItem veinte = new JMenuItem("20");
-//		JMenuItem veintidos = new JMenuItem("22");
-//		JMenuItem veinticuatro = new JMenuItem("24");
 
 //******Crear los elementos de cada menu 
 
-		crearActuar("Arial", "fuente", "Arial", 3, 52, "H://git//lernen//lernen//bin//iconos//paste.jpg");
-		crearActuar("Verdana", "fuente", "Verdana", 3, 52, "H:/git//lernen//lernen//bin//iconos/copy.jpg");
-		crearActuar("Serif", "fuente", "Serif", 3, 12, "H:/git//lernen//lernen//bin//iconos/gpt.png");
-// 		crearActuar("Negrita", "estilo", "", Font.BOLD, 30,
-// 			"H:/git//lernen//lernen//bin//iconos/paste.jpg");
-// 		crearActuar("Cursiva", "estilo", "", Font.ITALIC, 30,
-// 			"H:/git//lernen//lernen//bin//iconos/paste.jpg");
-//		crearActuar("12", "tamanio", "", 3, 12, "H:/git//lernen//lernen//bin//iconos/paste.jpg");
-//		crearActuar("20", "tamanio", "", 3, 20, "H:/git//lernen//lernen//bin//iconos/paste.jpg");
-//		crearActuar("28", "tamanio", "", 3, 28, "H:/git//lernen//lernen//bin//iconos/paste.jpg");
+		crearActuar2("Arial", "fuente", "Arial", 3, 52, "H://git//lernen//lernen//bin//iconos//paste.jpg");
+		crearActuar2("Verdana", "fuente", "Verdana", 3, 52, "H:/git//lernen//lernen//bin//iconos/copy.jpg");
+		crearActuar2("Serif", "fuente", "Serif", 3, 12, "H:/git//lernen//lernen//bin//iconos/gpt.png");
 
 		// as checkboxes
 		JCheckBoxMenuItem Negrita = new JCheckBoxMenuItem("Negrita",
@@ -190,50 +177,72 @@ class Lamina14 extends JPanel {
 		add(barraMenu, BorderLayout.NORTH);
 		add(areaTexto, BorderLayout.CENTER);
 
-//******construir barra de herramientas 
+//		JToolBar barraHerramientas = new JToolBar("Tools", JToolBar.VERTICAL);
+//
+////******construir Botones 
+//
+//		JButton bold = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\bold.gif"));
+//		JButton italic = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\italic.gif"));
+//		JButton under = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\italic.gif"));
+//		JButton verde = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\verde.gif"));
+//		JButton centrar = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\centro.gif"));
+//		JButton izquierda= new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\izq.gif"));
+//		JButton derecha = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\der.gif"));
+//		
+////******anadir la funcion a los botones
+//
+//		bold.addActionListener(new StyledEditorKit.BoldAction());
+//		italic.addActionListener(new StyledEditorKit.ItalicAction());
+//		under.addActionListener(new StyledEditorKit.UnderlineAction());
+//		verde.addActionListener(new StyledEditorKit.ForegroundAction("", Color.green));
+//		centrar.addActionListener(new StyledEditorKit.AlignmentAction("", 1));
+//		izquierda.addActionListener(new StyledEditorKit.AlignmentAction("", 3));
+//		derecha.addActionListener(new StyledEditorKit.AlignmentAction("", 2));
+//
+////******anadir elementos a la barra de herramientas
+//
+//		barraHerramientas.add(bold);
+//		barraHerramientas.add(italic);
+//		barraHerramientas.add(under);
+//		barraHerramientas.addSeparator();
+//		barraHerramientas.add(verde);
+//		barraHerramientas.addSeparator();
+//		barraHerramientas.add(centrar);
+//		barraHerramientas.add(izquierda);
+//		barraHerramientas.add(derecha);
+//		
+//		
+////******anadir barra de herramientas a la lamina
 
-		JToolBar barraHerramientas = new JToolBar("Tools", JToolBar.VERTICAL);
-
-//******construir Botones 
-
-		JButton bold = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\bold.gif"));
-		JButton italic = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\italic.gif"));
-		JButton under = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\italic.gif"));
-		JButton verde = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\verde.gif"));
-		JButton centrar = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\centro.gif"));
-		JButton izquierda= new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\izq.gif"));
-		JButton derecha = new JButton(new ImageIcon("H:\\git\\lernen\\lernen\\src\\icons\\der.gif"));
-		
-//******anadir la funcion a los botones
-
-		bold.addActionListener(new StyledEditorKit.BoldAction());
-		italic.addActionListener(new StyledEditorKit.ItalicAction());
-		under.addActionListener(new StyledEditorKit.UnderlineAction());
-		verde.addActionListener(new StyledEditorKit.ForegroundAction("", Color.green));
-		centrar.addActionListener(new StyledEditorKit.AlignmentAction("", 1));
-		izquierda.addActionListener(new StyledEditorKit.AlignmentAction("", 3));
-		derecha.addActionListener(new StyledEditorKit.AlignmentAction("", 2));
-
-//******anadir elementos a la barra de herramientas
-
-		barraHerramientas.add(bold);
-		barraHerramientas.add(italic);
-		barraHerramientas.add(under);
+		barraHerramientas = new JToolBar("tools", JToolBar.VERTICAL);
+		forToolBar("H:\\git\\lernen\\lernen\\src\\icons\\bold.gif").addActionListener(new StyledEditorKit.BoldAction());
+		forToolBar("H:\\git\\lernen\\lernen\\src\\icons\\italic.gif")
+				.addActionListener(new StyledEditorKit.ItalicAction());
+		forToolBar("H:\\git\\lernen\\lernen\\src\\icons\\italic.gif")
+				.addActionListener(new StyledEditorKit.UnderlineAction());
 		barraHerramientas.addSeparator();
-		barraHerramientas.add(verde);
+		forToolBar("H:\\git\\lernen\\lernen\\src\\icons\\verde.gif").addActionListener(new StyledEditorKit.ForegroundAction("", Color.green));
 		barraHerramientas.addSeparator();
-		barraHerramientas.add(centrar);
-		barraHerramientas.add(izquierda);
-		barraHerramientas.add(derecha);
-		
-		
-//******anadir barra de herramientas a la lamina
+		forToolBar("H:\\git\\lernen\\lernen\\src\\icons\\centro.gif")
+				.addActionListener(new StyledEditorKit.AlignmentAction("", 1));
+		forToolBar("H:\\git\\lernen\\lernen\\src\\icons\\der.gif")
+				.addActionListener(new StyledEditorKit.AlignmentAction("", 2));
+		forToolBar("H:\\git\\lernen\\lernen\\src\\icons\\izq.gif")
+				.addActionListener(new StyledEditorKit.AlignmentAction("", 3));
 
 		add(barraHerramientas, BorderLayout.EAST);
 
 	}
 
-	public void crearActuar(String rotulo, String menu, String fuente, int estilo, int tamanio, String imagen) {
+	public JButton forToolBar(String rutaImagen) {
+
+		JButton boton = new JButton(new ImageIcon(rutaImagen));
+		barraHerramientas.add(boton);
+		return boton;
+
+	}
+
+	public void crearActuar2(String rotulo, String menu, String fuente, int estilo, int tamanio, String imagen) {
 
 		ImageIcon icon = new ImageIcon(imagen);
 		JMenuItem unItem = new JMenuItem(rotulo, icon);
@@ -271,4 +280,5 @@ class Lamina14 extends JPanel {
 			}
 		}
 	}
+
 }
