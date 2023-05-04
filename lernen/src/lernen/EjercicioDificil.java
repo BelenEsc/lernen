@@ -10,7 +10,8 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
+import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 
 public class EjercicioDificil {
 
@@ -66,32 +67,69 @@ class Lamina23 extends JPanel {
 
 		panelBoton.add(botonMostrar);
 
+// crear cajas 
+
+		Box cajaTipo = Box.createVerticalBox();
+		Box cajaTipoMensaje = Box.createVerticalBox();
+		Box cajaMensaje = Box.createVerticalBox();
+		Box cajaConfirmar = Box.createVerticalBox();
+		Box cajaOpcion = Box.createVerticalBox();
+		Box cajaEntrada = Box.createVerticalBox();
+
+//		cajaTipo.setOpaque(true);
+//		cajaTipo.setBackground(new Color(230, 230, 230));
+// creas botones radio 
+
+		JRadioButton boton1_1 = new JRadioButton("tamanio");
+		JRadioButton boton1_2 = new JRadioButton("tamanio");
+		JRadioButton boton1_3 = new JRadioButton("tamanio");
+		JRadioButton boton1_4 = new JRadioButton("tamanio");
+
+		JRadioButton boton2_1 = new JRadioButton("tamanio");
+		JRadioButton boton2_2 = new JRadioButton("tamanio");
+		JRadioButton boton2_3 = new JRadioButton("tamanio");
+		JRadioButton boton2_4 = new JRadioButton("tamanio");
+		JRadioButton boton2_5 = new JRadioButton("tamanio");
+		JRadioButton boton2_6 = new JRadioButton("tamanio");
+
+//		JRadioButton boton1_3 = new JRadioButton("tamanio");
+//		JRadioButton boton1_4 = new JRadioButton("tamanio");
+//		JRadioButton boton1_1 = new JRadioButton("tamanio");
+//		JRadioButton boton1_2 = new JRadioButton("tamanio");
+//		JRadioButton boton1_3 = new JRadioButton("tamanio");
+//		JRadioButton boton1_4 = new JRadioButton("tamanio");
+//		JRadioButton boton1_1 = new JRadioButton("tamanio");
+//		JRadioButton boton1_2 = new JRadioButton("tamanio");
+//		JRadioButton boton1_3 = new JRadioButton("tamanio");
+//		JRadioButton boton1_4 = new JRadioButton("tamanio");
+
+// anadir botones a las cajas 
+
+		cajaTipo.add(boton1_1);
+		cajaTipo.add(boton1_2);
+		cajaTipo.add(boton1_3);
+		cajaTipo.add(boton1_4);
+
+		cajaTipoMensaje.add(boton2_1);
+
+// anadir cajas a panel
+
+		panelGrande.add(cajaTipo);
+		panelGrande.add(cajaTipoMensaje);
+		panelGrande.add(cajaMensaje);
+
+		panelGrande.add(cajaConfirmar);
+		panelGrande.add(cajaOpcion);
+		panelGrande.add(cajaEntrada);
+
 //anadir paneles a la lamina con disposiciones
 
 		add(panelGrande, BorderLayout.CENTER);
 		add(panelBoton, BorderLayout.SOUTH);
 
-// crear cajas 
-
-		Box cajaTipo = Box.createHorizontalBox();
-
-		cajaTipo.setOpaque(true);
-		cajaTipo.setBackground(Color.YELLOW);
-//		cajaTipo.setBorder(new TitledBorder(BorderFactory.createEmptyBorder(100, 10, 10, 10),"Titulo",TitledBorder.LEADING,1));
-		
-		
-		Box cajaConfirmar = Box.createHorizontalBox();
-		Box cajaTipoMensaje = Box.createHorizontalBox();
-		Box cajaMensaje = Box.createHorizontalBox();
-		Box cajaOpcion = Box.createHorizontalBox();
-		Box cajaEntrada = Box.createHorizontalBox();
-
-		panelGrande.add(cajaTipo);
-		panelGrande.add(cajaConfirmar);
-		panelGrande.add(cajaTipoMensaje);
-		panelGrande.add(cajaMensaje);
-		panelGrande.add(cajaOpcion);
-		panelGrande.add(cajaEntrada);
+//		Border borde = BorderFactory.createLineBorder(Color.gray);
+//		borde.isBorderOpaque();
+//		cajaTipo.setBorder(borde);
 
 	}
 
