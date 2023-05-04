@@ -24,10 +24,11 @@ class Marco4 extends JFrame {
 
 		setBounds(50, 50, 500, 500);
 		setTitle("Area de texto");
-		setVisible(true);
+		
 		setDefaultCloseOperation(3);
 		Lamina4 lamina4 = new Lamina4();
 		add(lamina4);
+		setVisible(true);
 	}
 
 }
