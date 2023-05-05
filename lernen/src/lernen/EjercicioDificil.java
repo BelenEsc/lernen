@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -40,6 +41,9 @@ class Marco23 extends JFrame {
 }
 
 class Lamina23 extends JPanel {
+
+	JPanel panelGrande;
+
 	public Lamina23() {
 
 //define disposicion lamina
@@ -48,7 +52,7 @@ class Lamina23 extends JPanel {
 
 //crear paneles
 
-		JPanel panelGrande = new JPanel(); // contiene las cajas
+		panelGrande = new JPanel(); // contiene las cajas
 		JPanel panelBoton = new JPanel(); // contiene el boton
 
 //definir disposicion de la lamina q contiene las cajas 
@@ -67,70 +71,74 @@ class Lamina23 extends JPanel {
 
 		panelBoton.add(botonMostrar);
 
-// crear cajas 
+//_________cajas__________		
 
-		Box cajaTipo = Box.createVerticalBox();
-		Box cajaTipoMensaje = Box.createVerticalBox();
-		Box cajaMensaje = Box.createVerticalBox();
-		Box cajaConfirmar = Box.createVerticalBox();
-		Box cajaOpcion = Box.createVerticalBox();
-		Box cajaEntrada = Box.createVerticalBox();
+// definir contenido de cajas 
 
-//		cajaTipo.setOpaque(true);
-//		cajaTipo.setBackground(new Color(230, 230, 230));
+		String[] elementosCajaTipo = { "Mensaje", "Confirmar", "Opcion", "Entrada" };
+		String[] elementosCajaTipoMensaje = { "ERROR_MESSAGE", "INFORMATION_MESSAGE", "WARNING_MESSAGE",
+				"QUESTION_MESSAGE", "PLAIN_MESSAGE" };
+		String[] elementosCajaMensaje = { "Cadena", "Icono", "Componente", "Otros", "Object[]" };
+		String[] elementosCajaConfirmar = { "DEFAULT_OPTION", "YES_NO_OPTION", "YES_NO_CANCEL_OPTION",
+				"OK_CANCEL_OPTION" };
+		String[] elementosCajaOpcion = { "String[]", "Icon[]", "Object[]" };
+		String[] elementosCajaEntrada = { "Campo de Texto", "Combo" };
+
+// crear cajas y poner borde 
+
+		ponerBorde(crearCaja(elementosCajaTipo), "Tipo");
+		ponerBorde(crearCaja(elementosCajaTipoMensaje), "Tipo de Mensaje");
+		ponerBorde(crearCaja(elementosCajaMensaje), "Mensaje");
+		ponerBorde(crearCaja(elementosCajaConfirmar), "Confirmar");
+		ponerBorde(crearCaja(elementosCajaOpcion), "Opcion");
+		ponerBorde(crearCaja(elementosCajaEntrada), "Entrada");
+
 // creas botones radio 
 
-		JRadioButton boton1_1 = new JRadioButton("tamanio");
-		JRadioButton boton1_2 = new JRadioButton("tamanio");
-		JRadioButton boton1_3 = new JRadioButton("tamanio");
-		JRadioButton boton1_4 = new JRadioButton("tamanio");
-
-		JRadioButton boton2_1 = new JRadioButton("tamanio");
-		JRadioButton boton2_2 = new JRadioButton("tamanio");
-		JRadioButton boton2_3 = new JRadioButton("tamanio");
-		JRadioButton boton2_4 = new JRadioButton("tamanio");
-		JRadioButton boton2_5 = new JRadioButton("tamanio");
-		JRadioButton boton2_6 = new JRadioButton("tamanio");
-
-//		JRadioButton boton1_3 = new JRadioButton("tamanio");
-//		JRadioButton boton1_4 = new JRadioButton("tamanio");
-//		JRadioButton boton1_1 = new JRadioButton("tamanio");
-//		JRadioButton boton1_2 = new JRadioButton("tamanio");
-//		JRadioButton boton1_3 = new JRadioButton("tamanio");
-//		JRadioButton boton1_4 = new JRadioButton("tamanio");
-//		JRadioButton boton1_1 = new JRadioButton("tamanio");
-//		JRadioButton boton1_2 = new JRadioButton("tamanio");
-//		JRadioButton boton1_3 = new JRadioButton("tamanio");
-//		JRadioButton boton1_4 = new JRadioButton("tamanio");
-
-// anadir botones a las cajas 
-
-		cajaTipo.add(boton1_1);
-		cajaTipo.add(boton1_2);
-		cajaTipo.add(boton1_3);
-		cajaTipo.add(boton1_4);
-
-		cajaTipoMensaje.add(boton2_1);
-
-// anadir cajas a panel
-
-		panelGrande.add(cajaTipo);
-		panelGrande.add(cajaTipoMensaje);
-		panelGrande.add(cajaMensaje);
-
-		panelGrande.add(cajaConfirmar);
-		panelGrande.add(cajaOpcion);
-		panelGrande.add(cajaEntrada);
+		ButtonGroup grupoTipo = new ButtonGroup();
+		ButtonGroup grupoTipoMensaje = new ButtonGroup();
+		ButtonGroup grupoMensaje = new ButtonGroup();
+		ButtonGroup grupoConfirmar = new ButtonGroup();
+		ButtonGroup grupoOpcion = new ButtonGroup();
+		ButtonGroup grupoEntrada = new ButtonGroup();
 
 //anadir paneles a la lamina con disposiciones
 
 		add(panelGrande, BorderLayout.CENTER);
 		add(panelBoton, BorderLayout.SOUTH);
 
-//		Border borde = BorderFactory.createLineBorder(Color.gray);
-//		borde.isBorderOpaque();
-//		cajaTipo.setBorder(borde);
+	}
 
+	public Box ponerBorde(Box caja, String titulo) {
+
+		Border borde = BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), titulo);
+		caja.setBorder(borde);
+
+		return caja;
+	}
+
+	public Box crearCaja(String[] opciones) {
+		
+		ButtonGroup grupo = new ButtonGroup();
+		
+		Box caja = Box.createVerticalBox();
+
+		for (String x : opciones) {
+			JRadioButton boton = new JRadioButton(x);
+			grupo.add(boton);
+			caja.add(boton);
+			
+		}
+		caja.setOpaque(true);
+		caja.setBackground(new Color(230, 230, 230));
+		panelGrande.add(caja);
+		return caja;
+		
+		
+			
+			
+		}
+		
 	}
 
 }
