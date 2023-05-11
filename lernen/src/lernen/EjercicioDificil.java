@@ -118,27 +118,22 @@ class Lamina23 extends JPanel {
 	}
 
 	public Box crearCaja(String[] opciones) {
-		
+
 		ButtonGroup grupo = new ButtonGroup();
-		
+
 		Box caja = Box.createVerticalBox();
 
 		for (String x : opciones) {
 			JRadioButton boton = new JRadioButton(x);
 			grupo.add(boton);
 			caja.add(boton);
-			
+
 		}
 		caja.setOpaque(true);
 		caja.setBackground(new Color(230, 230, 230));
 		panelGrande.add(caja);
 		return caja;
-		
-		
-			
-			
-		}
-		
+
 	}
 
 }
