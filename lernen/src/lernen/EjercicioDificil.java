@@ -61,7 +61,7 @@ class Lamina23 extends JPanel {
 
 //crear el boton
 
-		JButton botonMostrar = new JButton("Mostrars");
+		JButton botonMostrar = new JButton("Mostrar");
 
 //definir la disposicion de la lamina q contiene el boton para q no ocupe todo el campo
 
