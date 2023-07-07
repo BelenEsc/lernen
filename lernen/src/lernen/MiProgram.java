@@ -1,32 +1,48 @@
 package lernen;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.DriverManager;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MiProgram {
 
 	public static void main(String[] args) {
 
 		Frame frame = new Frame();
+		frame.setVisible(true);
 	}
 }
 
 class Frame extends JFrame {
+	String fileName;
+	PanelTexto panelTexto;
+	int conteoByte = 0;
+	int[] arrayBytes = new int[861];
+
 	public Frame() {
 		setTitle("my program");
-		setVisible(true);
 		setDefaultCloseOperation(3);
 		setBounds(50, 50, 600, 600);
 
@@ -35,8 +51,7 @@ class Frame extends JFrame {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Image img = kit.createImage(icon);
 		setIconImage(img);
-		
-		
+
 //		crear una lamina		
 //		Layout layout = new Layout();
 //		add(layout);
@@ -47,20 +62,8 @@ class Frame extends JFrame {
 		// mismo se le pone a la escucha y se define q va a hacer. Es como una cajita q
 		// llega todo.
 
-		// accion cargar archivo 
-		
-		Action cargarArchivo = new AbstractAction("Open", new ImageIcon()) {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		
-				
 		// accion salir
-		
+
 		Action exit = new AbstractAction("salir", new ImageIcon("H://git//lernen//lernen//src//icons//x.gif")) {
 
 			@Override
@@ -78,8 +81,10 @@ class Frame extends JFrame {
 		JMenu menu = new JMenu("menu");
 
 		// elementos de elementos de menu
-		JMenuItem cargar = new JMenuItem(cargarArchivo); // esto en el futuro se va a reemplazar con un objeto accion
-															// que haga algo
+		JMenuItem cargar = new JMenuItem("open"); // esto en el futuro se va a reemplazar con un objeto accion
+													// que haga algo
+		// accion cargar archivo
+		cargar.addActionListener(new accionAbrir());
 
 		// asignar elementos nivel 1
 		menu.add(cargar);
@@ -101,20 +106,55 @@ class Frame extends JFrame {
 
 		add(barraHerramientas, BorderLayout.NORTH);
 
-		// anadir elementos al marco y definirla como el menu principal 
-		
+		// anadir elementos al marco y definirla como el menu principal
+
 		setJMenuBar(menuBar);
 
+		panelTexto = new PanelTexto();
+		add(panelTexto, BorderLayout.CENTER);
 	}
 
-}
+	class PanelTexto extends JPanel {
+		public static JTextArea textArea;
 
-class Layout extends JPanel {
-	public Layout() {
-
-		// disposicion
-		setLayout(new BorderLayout());
-
+		public PanelTexto() {
+			textArea = new JTextArea(50, 50);
+			textArea.setBackground(new Color(150, 50, 50));
+			add(textArea);
+		}
 	}
 
+	class accionAbrir implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser chooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "txt");
+			chooser.setFileFilter(filter);
+			int returnVal = chooser.showOpenDialog(SwingUtilities.getWindowAncestor((Component) e.getSource()));
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				PanelTexto.textArea.setText("You chose to open this file: " + chooser.getSelectedFile().getName());
+				System.out.println(chooser.getSelectedFile().getAbsolutePath());
+				fileName = chooser.getSelectedFile().getAbsolutePath();
+				System.out.println(fileName);
+
+				try {
+					FileInputStream leerArchivo = new FileInputStream(fileName);
+					////////////------------- CONTINUE HERE 
+					
+					BufferedReader buffer = new BufferedReader(leerArchivo);
+					for (int i = 0; i <= 3; i++) {
+						datos[i] = buffer.readLine();
+					}
+
+					miConexion = DriverManager.getConnection(datos[0], datos[1], datos[2]);
+					entrada.close();
+					
+
+				} catch (Exception ex) {
+					ex.getMessage();
+				}
+			}
+		}
+	}
 }
