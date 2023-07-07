@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileReader;
 import java.sql.DriverManager;
 
 import javax.swing.AbstractAction;
@@ -139,10 +139,12 @@ class Frame extends JFrame {
 				System.out.println(fileName);
 
 				try {
-					FileInputStream leerArchivo = new FileInputStream(fileName);
+					FileReader leerArchivo = new FileReader(fileName);
+					BufferedReader buffer = new BufferedReader(leerArchivo);
+					
+					
 					////////////------------- CONTINUE HERE 
 					
-					BufferedReader buffer = new BufferedReader(leerArchivo);
 					for (int i = 0; i <= 3; i++) {
 						datos[i] = buffer.readLine();
 					}
