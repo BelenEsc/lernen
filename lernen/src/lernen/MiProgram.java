@@ -8,9 +8,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -39,7 +39,7 @@ class Frame extends JFrame {
 	String fileName;
 	PanelTexto panelTexto;
 	int conteoByte = 0;
-	int[] arrayBytes = new int[861];
+	String[] datos;
 
 	public Frame() {
 		setTitle("my program");
@@ -129,29 +129,34 @@ class Frame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser chooser = new JFileChooser();
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("txt", "txt");
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("csv", "csv");
 			chooser.setFileFilter(filter);
 			int returnVal = chooser.showOpenDialog(SwingUtilities.getWindowAncestor((Component) e.getSource()));
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				PanelTexto.textArea.setText("You chose to open this file: " + chooser.getSelectedFile().getName());
+				PanelTexto.textArea
+						.setText("You chose to open this file: " + chooser.getSelectedFile().getName() + "\n");
+				System.out.println("\n");
 				System.out.println(chooser.getSelectedFile().getAbsolutePath());
 				fileName = chooser.getSelectedFile().getAbsolutePath();
 				System.out.println(fileName);
 
 				try {
 					FileReader leerArchivo = new FileReader(fileName);
+					System.out.println("si");
 					BufferedReader buffer = new BufferedReader(leerArchivo);
-					
-					
-					////////////------------- CONTINUE HERE 
-					
-					for (int i = 0; i <= 3; i++) {
-						datos[i] = buffer.readLine();
+					String linea;
+					String[] splitet;
+					int contador = 1;
+					while ((linea = buffer.readLine()) != null) {
+						splitet = linea.split(";");
+						for (String cells : splitet) {
+							
+							String formattedCell = String.format("%-" + 50 + "s", cells);
+							PanelTexto.textArea.append(formattedCell);
+						}
+						PanelTexto.textArea.append("\n");
+						contador++;
 					}
-
-					miConexion = DriverManager.getConnection(datos[0], datos[1], datos[2]);
-					entrada.close();
-					
 
 				} catch (Exception ex) {
 					ex.getMessage();
