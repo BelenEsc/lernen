@@ -145,21 +145,27 @@ class Frame extends JFrame {
 					System.out.println("si");
 					BufferedReader buffer = new BufferedReader(leerArchivo);
 					String linea;
-					String[] splitet;
-					int contador = 1;
+					String[] splitetFilas;
+					String[] splitetFilasColumnas;
+
 					while ((linea = buffer.readLine()) != null) {
-						splitet = linea.split(";");
-						for (String cells : splitet) {
-							
-							String formattedCell = String.format("%-" + 50 + "s", cells);
-							PanelTexto.textArea.append(formattedCell);
+						splitetFilas = linea.split("\n");
+						for (int i = 0; i < splitetFilas.length; i++) {
+							splitetFilasColumnas = splitetFilas[i].split(";");
+
+							for (int j = 0; j < splitetFilasColumnas.length - 1; j++) {
+								if (splitetFilasColumnas[j].isEmpty()) {
+									splitetFilasColumnas[j] = "Faltan datos";
+								}
+								PanelTexto.textArea
+										.append(splitetFilasColumnas[j + 1] + "; " + splitetFilasColumnas[j]);
+								PanelTexto.textArea.append("\n");
+							}
 						}
-						PanelTexto.textArea.append("\n");
-						contador++;
 					}
 
 				} catch (Exception ex) {
-					ex.getMessage();
+					System.out.println(ex.getMessage());
 				}
 			}
 		}
