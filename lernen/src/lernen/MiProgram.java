@@ -1,35 +1,27 @@
 package lernen;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 public class MiProgram {
-
 	public static void main(String[] args) {
-
 		Frame frame = new Frame();
 		frame.setVisible(true);
 	}
@@ -38,132 +30,89 @@ public class MiProgram {
 class Frame extends JFrame {
 	String fileName;
 	PanelTexto panelTexto;
-	int conteoByte = 0;
-	String[] datos;
 
 	public Frame() {
-		setTitle("my program");
-		setDefaultCloseOperation(3);
+		setTitle("Mi Programa");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 50, 600, 600);
 
-		// set Icon
-		String icon = new String("C://Users//belen//git//lernen//lernen//bin//Icons//logoDNA.gif");
-		Toolkit kit = Toolkit.getDefaultToolkit();
-		Image img = kit.createImage(icon);
-		setIconImage(img);
-
-//		crear una lamina		
-//		Layout layout = new Layout();
-//		add(layout);
-
-		// crear objetos que contengan caracteristicas y acciones. All crear un objeto
-		// AbstractAcion se crea un elemento, se le pasa unos parametros "nombre"
-		// "icono" y ya se define que es lo que va a hacer, o sea se crea un objeto, ahi
-		// mismo se le pone a la escucha y se define q va a hacer. Es como una cajita q
-		// llega todo.
-
-		// accion salir
-
-		Action exit = new AbstractAction("salir", new ImageIcon("H://git//lernen//lernen//src//icons//x.gif")) {
-
+		// Crear objetos que contengan características y acciones.
+		Action exit = new AbstractAction("Salir") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				System.exit(0);
 			}
 		};
 
-		// crear menu
+		// Crear el menú
 		JMenuBar menuBar = new JMenuBar();
-
-		// elementos de menu
-
-		JMenu menu = new JMenu("menu");
-
-		// elementos de elementos de menu
-		JMenuItem cargar = new JMenuItem("open"); // esto en el futuro se va a reemplazar con un objeto accion
-													// que haga algo
-		// accion cargar archivo
-		cargar.addActionListener(new accionAbrir());
-
-		// asignar elementos nivel 1
+		JMenu menu = new JMenu("Menú");
+		JMenuItem cargar = new JMenuItem("Abrir");
+		cargar.addActionListener(new AccionAbrir());
 		menu.add(cargar);
 		menu.addSeparator();
 		menu.add(exit);
-
-		// asignar elementos nivel 0
 		menuBar.add(menu);
-
-		// crear Toolbar
-
-		JToolBar barraHerramientas = new JToolBar("tools");
-
-		// anadir elementos a la toolbar
-
-		barraHerramientas.add(exit);
-
-		// anadir toolbar al marco
-
-		add(barraHerramientas, BorderLayout.NORTH);
-
-		// anadir elementos al marco y definirla como el menu principal
-
 		setJMenuBar(menuBar);
 
 		panelTexto = new PanelTexto();
-		add(panelTexto, BorderLayout.CENTER);
+		add(panelTexto);
 	}
 
 	class PanelTexto extends JPanel {
-		public static JTextArea textArea;
+		JTextArea textArea;
+		JScrollPane scrollPane;
+		JTable table;
+		JScrollPane tableScrollPane;
 
 		public PanelTexto() {
-			textArea = new JTextArea(50, 50);
-			textArea.setBackground(new Color(150, 50, 50));
-			add(textArea);
+			setLayout(new BorderLayout());
+			table = new JTable();
+			tableScrollPane = new JScrollPane(table);
+			add(tableScrollPane, BorderLayout.CENTER);
+		}
+
+		public void cargarTabla(String[][] datos, String[] columnas) {
+			DefaultTableModel model = new DefaultTableModel(datos, columnas);
+			table.setModel(model);
 		}
 	}
 
-	class accionAbrir implements ActionListener {
-
+	class AccionAbrir implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser chooser = new JFileChooser();
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("csv", "csv");
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo CSV", "csv");
 			chooser.setFileFilter(filter);
-			int returnVal = chooser.showOpenDialog(SwingUtilities.getWindowAncestor((Component) e.getSource()));
+			int returnVal = chooser.showOpenDialog(Frame.this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				PanelTexto.textArea
-						.setText("You chose to open this file: " + chooser.getSelectedFile().getName() + "\n");
-				System.out.println("\n");
-				System.out.println(chooser.getSelectedFile().getAbsolutePath());
 				fileName = chooser.getSelectedFile().getAbsolutePath();
-				System.out.println(fileName);
-
 				try {
-					FileReader leerArchivo = new FileReader(fileName);
-					System.out.println("si");
-					BufferedReader buffer = new BufferedReader(leerArchivo);
+					BufferedReader buffer = new BufferedReader(new FileReader(fileName));
+					StringBuilder sb = new StringBuilder();
 					String linea;
-					String[] splitetFilas;
-					String[] splitetFilasColumnas;
 
 					while ((linea = buffer.readLine()) != null) {
-						splitetFilas = linea.split("\n");
-						for (int i = 0; i < splitetFilas.length; i++) {
-							splitetFilasColumnas = splitetFilas[i].split(";");
+						sb.append(linea);
+						sb.append("\n");
+					}
 
-							for (int j = 0; j < splitetFilasColumnas.length - 1; j++) {
-								if (splitetFilasColumnas[j].isEmpty()) {
-									splitetFilasColumnas[j] = "Faltan datos";
-								}
-								PanelTexto.textArea
-										.append(splitetFilasColumnas[j + 1] + "; " + splitetFilasColumnas[j]);
-								PanelTexto.textArea.append("\n");
-							}
+					buffer.close();
+
+					String[] lineas = sb.toString().split("\n");
+					String[][] datos = new String[lineas.length][];
+					String[] columnas = null;
+
+					for (int i = 0; i < lineas.length; i++) {
+						String[] columnasSplit = lineas[i].split(";");
+						if (i == 0) {
+							columnas = columnasSplit;
+						} else {
+							datos[i] = columnasSplit;
 						}
 					}
 
+					panelTexto.cargarTabla(datos, columnas);
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
 				}
