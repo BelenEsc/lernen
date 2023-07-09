@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -48,8 +51,10 @@ class Frame extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Menú");
 		JMenuItem cargar = new JMenuItem("Abrir");
+		JMenuItem guardarMenuItem = new JMenuItem("Guardar");
 		cargar.addActionListener(new AccionAbrir());
 		menu.add(cargar);
+		menu.add(guardarMenuItem);
 		menu.addSeparator();
 		menu.add(exit);
 		menuBar.add(menu);
@@ -57,6 +62,7 @@ class Frame extends JFrame {
 
 		panelTexto = new PanelTexto();
 		add(panelTexto);
+		guardarMenuItem.addActionListener(new GuardarCSVActionListener(panelTexto.table));
 	}
 
 	class PanelTexto extends JPanel {
@@ -73,8 +79,17 @@ class Frame extends JFrame {
 		}
 
 		public void cargarTabla(String[][] datos, String[] columnas) {
-			DefaultTableModel model = new DefaultTableModel(datos, columnas);
+			DefaultTableModel model = new DefaultTableModel(datos, columnas) {
+
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					return false; // Hacer que las celdas no sean editables
+				}
+			};
+
 			table.setModel(model);
+
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		}
 	}
 
@@ -108,7 +123,7 @@ class Frame extends JFrame {
 						if (i == 0) {
 							columnas = columnasSplit;
 						} else {
-							datos[i] = columnasSplit;
+							datos[i - 1] = columnasSplit;
 						}
 					}
 
@@ -118,5 +133,77 @@ class Frame extends JFrame {
 				}
 			}
 		}
+	}
+
+	class GuardarCSVActionListener implements ActionListener {
+		private final JTable table;
+
+		public GuardarCSVActionListener(JTable table) {
+			this.table = table;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser saveFileChooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo CSV", "csv");
+			saveFileChooser.setFileFilter(filter);
+			int saveReturnVal = saveFileChooser.showSaveDialog(null);
+			if (saveReturnVal == JFileChooser.APPROVE_OPTION) {
+				String saveFilePath = saveFileChooser.getSelectedFile().getAbsolutePath();
+				guardarTablaComoCSV(saveFilePath);
+//				establecerSoloLectura(saveFilePath);
+			}
+		}
+
+		private void guardarTablaComoCSV(String filePath) {
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+				int rowCount = table.getRowCount();
+				int columnCount = table.getColumnCount();
+
+				// Escribir los nombres de las columnas
+				for (int i = 0; i < columnCount; i++) {
+					writer.write(table.getColumnName(i));
+					if (i < columnCount - 1) {
+						writer.write(";");
+					}
+				}
+				writer.newLine();
+
+				// Escribir los datos de las celdas
+				for (int i = 0; i < rowCount; i++) {
+					for (int j = 0; j < columnCount; j++) {
+						Object value = table.getValueAt(i, j);
+						writer.write(value != null ? value.toString() : "");
+						if (j < columnCount - 1) {
+							writer.write(";");
+						}
+					}
+					writer.newLine();
+				}
+
+				System.out.println("Tabla guardada como archivo CSV: " + filePath);
+			} catch (IOException ex) {
+				System.out.println("Error al guardar la tabla como archivo CSV: " + ex.getMessage());
+			}
+		}
+
+//		private void establecerSoloLectura(String filePath) {
+//			try {
+//				Path path = Path.of(filePath);
+//
+//				// Establecer atributos de solo lectura
+//				Set<PosixFilePermission> permissions = new HashSet<>();
+//				permissions.add(PosixFilePermission.OWNER_READ);
+//				permissions.add(PosixFilePermission.OWNER_WRITE);
+//				permissions.add(PosixFilePermission.GROUP_READ);
+//				permissions.add(PosixFilePermission.GROUP_WRITE);
+//				permissions.add(PosixFilePermission.OTHERS_READ);
+//				permissions.add(PosixFilePermission.OTHERS_WRITE);
+//				Files.setPosixFilePermissions(path, permissions);
+//				System.out.println("Archivo establecido como solo lectura: " + filePath);
+//			} catch (IOException ex) {
+//				System.out.println("Error al establecer el archivo como solo lectura: " + ex.getMessage());
+//			}
+//		}
 	}
 }
