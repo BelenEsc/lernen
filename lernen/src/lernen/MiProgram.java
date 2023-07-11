@@ -38,9 +38,7 @@ public class MiProgram {
 }
 
 class Frame extends JFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	String fileName;
 	PanelTexto panelTexto;
@@ -52,9 +50,7 @@ class Frame extends JFrame {
 
 		// Crear objetos que contengan características y acciones.
 		Action exit = new AbstractAction("Salir") {
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -131,6 +127,27 @@ class Frame extends JFrame {
 					panelTexto.eliminarFilasSeleccionadas();
 				}
 			});
+			JButton deleteEmptyRowsButton = new JButton("Delete Empty Rows");
+			// Add ActionListener to the button
+			deleteEmptyRowsButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Get the selected column index
+					int selectedColumn = table.getSelectedColumn();
+
+					// Iterate through the table rows
+					for (int row = table.getRowCount() - 1; row >= 0; row--) {
+						// Retrieve the cell value in the selected column of the current row
+						Object cellValue = table.getValueAt(row, selectedColumn);
+
+						// Check if the cell value is empty
+						if (cellValue == null || cellValue.toString().trim().isEmpty()) {
+							// Delete the row
+							((DefaultTableModel) table.getModel()).removeRow(row);
+						}
+					}
+				}
+			});
 
 			JPanel x = new JPanel();
 			x.setLayout(new FlowLayout());
@@ -138,6 +155,7 @@ class Frame extends JFrame {
 			x.add(undoRowsButton);
 			x.add(eliminarColumnas);
 			x.add(undoButton);
+			x.add(deleteEmptyRowsButton);
 			add(x, BorderLayout.SOUTH);
 		}
 
@@ -392,4 +410,31 @@ class Frame extends JFrame {
 			fireTableStructureChanged();
 		}
 	}
+
+	private class DeleteEmptyRowsButtonListener implements ActionListener {
+		private JTable table;
+
+		public DeleteEmptyRowsButtonListener(JTable table) {
+			this.table = table;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Get the selected column index
+			int selectedColumn = table.getSelectedColumn();
+
+			// Iterate through the table rows
+			for (int row = table.getRowCount() - 1; row >= 0; row--) {
+				// Retrieve the cell value in the selected column of the current row
+				Object cellValue = table.getValueAt(row, selectedColumn);
+
+				// Check if the cell value is empty
+				if (cellValue == null || cellValue.toString().trim().isEmpty()) {
+					// Delete the row
+					((CustomTableModel) table.getModel()).removeRow(row);
+				}
+			}
+		}
+	}
+
 }
