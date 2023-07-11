@@ -38,6 +38,10 @@ public class MiProgram {
 }
 
 class Frame extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String fileName;
 	PanelTexto panelTexto;
 
@@ -48,6 +52,11 @@ class Frame extends JFrame {
 
 		// Crear objetos que contengan características y acciones.
 		Action exit = new AbstractAction("Salir") {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -70,25 +79,14 @@ class Frame extends JFrame {
 		panelTexto = new PanelTexto();
 		add(panelTexto);
 		guardarMenuItem.addActionListener(new GuardarCSVActionListener(panelTexto.table));
-		JMenuItem eliminarFilas = new JMenuItem("Eliminar Filas");
-		JMenuItem eliminarColumnas = new JMenuItem("Eliminar Columnas");
-		eliminarColumnas.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panelTexto.eliminarColumnasSeleccionadas();
-			}
-		});
-		menu.add(eliminarColumnas);
-		eliminarFilas.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panelTexto.eliminarFilasSeleccionadas();
-			}
-		});
-		menu.add(eliminarFilas);
+
 	}
 
 	class PanelTexto extends JPanel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		CustomTableModel model;
 		JTable table;
 		JScrollPane tableScrollPane;
@@ -104,7 +102,7 @@ class Frame extends JFrame {
 
 			add(tableScrollPane, BorderLayout.CENTER);
 
-			JButton undoButton = new JButton("Undo");
+			JButton undoButton = new JButton("Undo Columns");
 			undoButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -118,15 +116,38 @@ class Frame extends JFrame {
 					undoRowsDeletion();
 				}
 			});
+
+			JButton eliminarFilas = new JButton("Eliminar Filas");
+			JButton eliminarColumnas = new JButton("Eliminar Columnas");
+			eliminarColumnas.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					panelTexto.eliminarColumnasSeleccionadas();
+				}
+			});
+			eliminarFilas.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					panelTexto.eliminarFilasSeleccionadas();
+				}
+			});
+
 			JPanel x = new JPanel();
 			x.setLayout(new FlowLayout());
+			x.add(eliminarFilas);
 			x.add(undoRowsButton);
+			x.add(eliminarColumnas);
 			x.add(undoButton);
 			add(x, BorderLayout.SOUTH);
 		}
 
 		public void cargarTabla(String[][] datos, String[] columnas) {
 			DefaultTableModel model = new DefaultTableModel(datos, columnas) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public boolean isCellEditable(int row, int column) {
 					return false; // Hacer que las celdas no sean editables
@@ -137,16 +158,26 @@ class Frame extends JFrame {
 			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		}
 
+		private List<String[]> deletedRows = new ArrayList<>();
+
 		public void eliminarFilasSeleccionadas() {
 			int[] selectedRows = table.getSelectedRows();
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
 
-			if (selectedRows.length > 0) {
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-				// Eliminar filas en orden descendente para evitar cambios en los índices
-				for (int i = selectedRows.length - 1; i >= 0; i--) {
-					model.removeRow(selectedRows[i]);
+			// Store the deleted rows in the data structure
+			for (int i = selectedRows.length - 1; i >= 0; i--) {
+				int row = selectedRows[i];
+				String[] rowData = new String[model.getColumnCount()];
+				for (int j = 0; j < model.getColumnCount(); j++) {
+					rowData[j] = (String) model.getValueAt(row, j);
 				}
+				deletedRows.add(rowData);
+			}
+
+			// Delete the selected rows
+			for (int i = selectedRows.length - 1; i >= 0; i--) {
+				int row = selectedRows[i];
+				model.removeRow(row);
 			}
 		}
 
@@ -185,16 +216,23 @@ class Frame extends JFrame {
 		}
 
 		public void undoRowsDeletion() {
-			if (!undoStack.isEmpty()) {
-				TableState previousState = undoStack.pop();
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
 
-				for (Object[] rowData : previousState.getDeletedRows()) {
-					model.addRow(rowData);
-				}
+			// Restore the deleted rows
+			for (String[] rowData : deletedRows) {
+				model.addRow(rowData);
 			}
+
+			// Clear the data structure
+			deletedRows.clear();
 		}
 
 		class CustomTableModel extends DefaultTableModel {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			public Object[] getRowData(int row) {
 				Object[] rowData = new Object[getColumnCount()];
 
@@ -207,18 +245,15 @@ class Frame extends JFrame {
 		}
 
 		class TableState {
-			private TableColumnModel columnModel;
 			private List<Object[]> deletedRows;
 			private Stack<TableColumn> deletedColumns;
 
 			public TableState() {
-				this.columnModel = null;
 				this.deletedRows = new ArrayList<>();
 				this.deletedColumns = new Stack<>();
 			}
 
 			public TableState(TableColumnModel columnModel) {
-				this.columnModel = columnModel;
 				this.deletedRows = new ArrayList<>();
 				this.deletedColumns = new Stack<>();
 			}
@@ -337,6 +372,11 @@ class Frame extends JFrame {
 	}
 
 	class CustomTableModel extends DefaultTableModel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void removeColumn(int columnIndex) {
 			// Remove the column header
 			columnIdentifiers.remove(columnIndex);
